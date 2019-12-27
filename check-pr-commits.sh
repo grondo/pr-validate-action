@@ -102,7 +102,8 @@ check_commit() {
 
 printf "Git version:\n"
 git --version
-printf "Current commit %s\n" $(git show -s --format="%h %s")
+git remote -v
+git branch -v
 
 COMMITS=$(git log --format=%h ${UPSTREAM}..HEAD)
 for sha in $COMMITS; do
