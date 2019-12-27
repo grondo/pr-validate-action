@@ -100,6 +100,10 @@ check_commit() {
 #############################################################################
 #  Main loop:
 
+printf "Git version:\n"
+git --version
+printf "Current commit %s\n" $(git show -s --format="%h %s")
+
 for sha in $(git log --format=%h ${UPSTREAM}..HEAD); do
     if ! check_commit $sha; then
         RESULT=1
