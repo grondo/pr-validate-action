@@ -105,6 +105,8 @@ git --version
 git remote -v
 git branch -v
 
+env | grep GITHUB
+
 COMMITS=$(git log --format=%h ${UPSTREAM}..HEAD)
 for sha in $COMMITS; do
     if ! check_commit $sha; then
