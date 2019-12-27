@@ -11,7 +11,8 @@
 set -e
 set -o pipefail
 
-UPSTREAM=${1:-origin/master}
+HEAD="HEAD"
+BASE="master"
 
 RESULT=0
 LOG=()
@@ -100,14 +101,7 @@ check_commit() {
 #############################################################################
 #  Main loop:
 
-printf "Git version:\n"
-git --version
-git remote -v
-git branch -v
-
-env | grep GITHUB
-
-COMMITS=$(git log --format=%h ${UPSTREAM}..HEAD)
+COMMITS=$(git log --format=%h ${BASE}..${HEAD})
 for sha in $COMMITS; do
     if ! check_commit $sha; then
         RESULT=1
