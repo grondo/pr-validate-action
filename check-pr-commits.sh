@@ -104,7 +104,8 @@ printf "Git version:\n"
 git --version
 printf "Current commit %s\n" $(git show -s --format="%h %s")
 
-for sha in $(git log --format=%h ${UPSTREAM}..HEAD); do
+COMMITS=$(git log --format=%h ${UPSTREAM}..HEAD)
+for sha in $COMMITS; do
     if ! check_commit $sha; then
         RESULT=1
     fi
