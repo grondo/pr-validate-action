@@ -25,6 +25,7 @@ NOK='\u2718'
 #  error log and output functions:
 
 #  Setup color (taken from sharness)
+color=t
 [ "x$TERM" != "xdumb" ] && (
         [ -t 1 ] &&
         tput bold >/dev/null 2>&1 &&
