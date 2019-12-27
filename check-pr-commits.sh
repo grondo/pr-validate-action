@@ -12,7 +12,7 @@ set -e
 set -o pipefail
 
 HEAD="HEAD"
-BASE="master"
+BASE="origin/master"
 
 RESULT=0
 LOG=()
