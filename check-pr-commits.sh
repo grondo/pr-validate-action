@@ -34,10 +34,10 @@ color=t
     ) && color=t
 
 if test -n "$color"; then
-    color_fail=$(tput bold; tput setaf 1) # bold red
-    color_pass=$(tput bold; tput setaf 2) # bold green
-    color_warn=$(tput bold; tput setaf 3) # bold yellow
-    color_reset=$(tput sgr0) # bold green
+    color_fail='\e[91m' # bold red
+    color_pass='\e[92m' # bold green
+    color_warn='\e[93m' # bold yellow
+    color_reset='\e[0m' # bold green
     log()   { LOG+=("${color_warn}$*${color_reset}"); }
     ok()    { printf "${color_pass}${OK}${color_reset}"; }
     notok() { printf "${color_fail}${NOK}${color_reset}"; }
