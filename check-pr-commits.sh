@@ -24,19 +24,11 @@ NOK='\u2718'
 #############################################################################
 #  error log and output functions:
 
-#  Setup color (taken from sharness)
 color=t
-[ "x$TERM" != "xdumb" ] && (
-        [ -t 1 ] &&
-        tput bold >/dev/null 2>&1 &&
-        tput setaf 1 >/dev/null 2>&1 &&
-        tput sgr0 >/dev/null 2>&1
-    ) && color=t
-
 if test -n "$color"; then
-    color_fail='\e[91m' # bold red
-    color_pass='\e[92m' # bold green
-    color_warn='\e[93m' # bold yellow
+    color_fail='\e[1m\e[31m' # bold red
+    color_pass='\e[1m\e[32m' # bold green
+    color_warn='\e[1m\e[33m' # bold yellow
     color_reset='\e[0m' # bold green
     log()   { LOG+=("${color_warn}$*${color_reset}"); }
     ok()    { printf "${color_pass}${OK}${color_reset}"; }
@@ -48,7 +40,7 @@ else
 fi
 
 dump_log() {
-    printf "\nCommits failed validation:\n"
+    printf "\nCommit message validation failed::\n"
     for line in "${LOG[@]}"; do
         printf " $line\n"
     done
@@ -95,12 +87,14 @@ check_commit() {
         symbol="$(notok)"
         result=1
     fi
-    printf "${symbol} ${sha} ${subject}\n"
+    printf " ${symbol} ${sha} ${subject}\n"
     return $result
 }
 
 #############################################################################
 #  Main loop:
+
+printf "Validating commits on current branch:\n"
 
 COMMITS=$(git log --format=%h ${BASE}..${HEAD})
 for sha in $COMMITS; do
